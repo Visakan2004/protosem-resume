@@ -7,21 +7,45 @@
     <title>Visakan K | Portfolio & Innovation Archive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #090d16;
-            --bg-card: rgba(17, 24, 39, 0.7);
-            --bg-card-hover: rgba(30, 41, 59, 0.8);
+            --bg-dark: #070a12;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
             --border-card: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(56, 189, 248, 0.3);
+            --border-highlight: rgba(56, 189, 248, 0.4);
             --accent-primary: #38bdf8;
             --accent-secondary: #818cf8;
             --accent-indigo: #6366f1;
             --accent-emerald: #10b981;
+            --accent-amber: #fbbf24;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
+            --spotlight-color: rgba(56, 189, 248, 0.12);
+        }
+
+        /* Dynamic Theme Switcher Presets */
+        body.theme-violet {
+            --accent-primary: #c084fc;
+            --accent-secondary: #f472b6;
+            --accent-indigo: #e11d48;
+            --spotlight-color: rgba(192, 132, 252, 0.14);
+        }
+
+        body.theme-emerald {
+            --accent-primary: #34d399;
+            --accent-secondary: #38bdf8;
+            --accent-indigo: #059669;
+            --spotlight-color: rgba(52, 211, 153, 0.14);
+        }
+
+        body.theme-amber {
+            --accent-primary: #fbbf24;
+            --accent-secondary: #f97316;
+            --accent-indigo: #d97706;
+            --spotlight-color: rgba(251, 191, 36, 0.14);
         }
 
         * {
@@ -42,50 +66,79 @@
             overflow-x: hidden;
         }
 
-        /* Ambient Background Glows */
-        .ambient-glow {
+        /* Ambient Animated Grid & Particle Glows */
+        .bg-grid-overlay {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(99, 102, 241, 0.04) 50%, rgba(0,0,0,0) 70%);
-            top: -200px;
-            left: -100px;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             pointer-events: none;
             z-index: 0;
+        }
+
+        .ambient-glow-1 {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--spotlight-color) 0%, rgba(99, 102, 241, 0.03) 50%, transparent 70%);
+            top: -250px;
+            left: -150px;
+            pointer-events: none;
+            z-index: 0;
+            transition: background 0.4s ease;
         }
 
         .ambient-glow-2 {
             position: fixed;
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(129, 140, 248, 0.06) 0%, rgba(16, 185, 129, 0.03) 50%, rgba(0,0,0,0) 70%);
-            bottom: -150px;
-            right: -100px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.06) 0%, rgba(16, 185, 129, 0.03) 50%, transparent 70%);
+            bottom: -200px;
+            right: -150px;
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Glassmorphism Container Utility */
+        /* Glassmorphism Container with Mouse Tracking Spotlight */
         .glass-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-card);
             border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--spotlight-color), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
         }
 
         .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--border-highlight);
         }
 
-        /* Navigation Header */
+        /* Sticky Navigation Bar */
         .navbar {
             position: sticky;
             top: 0;
-            background: rgba(9, 13, 22, 0.85);
+            background: rgba(7, 10, 18, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -118,12 +171,12 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--accent-primary);
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 12px var(--spotlight-color);
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             list-style: none;
             margin: 0;
             padding: 0;
@@ -140,6 +193,29 @@
 
         .nav-links a:hover {
             color: var(--accent-primary);
+        }
+
+        /* Theme Accent Picker Pills */
+        .theme-picker-group {
+            display: flex;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px;
+            border-radius: 20px;
+        }
+
+        .theme-dot-btn {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .theme-dot-btn:hover {
+            transform: scale(1.25);
         }
 
         .btn-resume {
@@ -162,22 +238,28 @@
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
 
-        /* Layout Main Wrapper */
+        /* Main Container */
         .main-wrapper {
             max-width: 1140px;
             margin: 0 auto;
-            padding: 40px 24px 80px;
+            padding: 30px 24px 80px;
             position: relative;
             z-index: 1;
         }
 
-        /* Hero Section */
+        /* Hero Section Layout */
         .hero-section {
-            padding: 30px 0 60px;
+            padding: 20px 0 50px;
             display: grid;
             grid-template-columns: 1fr 380px;
-            gap: 40px;
-            align-items: center;
+            gap: 36px;
+            align-items: stretch;
+        }
+
+        .hero-content-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .hero-badge {
@@ -194,6 +276,7 @@
             border-radius: 20px;
             text-transform: uppercase;
             margin-bottom: 20px;
+            width: fit-content;
         }
 
         .hero-badge-dot {
@@ -202,6 +285,12 @@
             border-radius: 50%;
             background: var(--accent-primary);
             box-shadow: 0 0 10px var(--accent-primary);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
         }
 
         .hero-title {
@@ -210,7 +299,7 @@
             line-height: 1.15;
             letter-spacing: -0.5px;
             margin: 0 0 18px;
-            background: linear-gradient(135deg, #ffffff 30%, var(--text-secondary) 100%);
+            background: linear-gradient(135deg, #ffffff 40%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -269,26 +358,25 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Hero Profile & Stats Card */
+        /* Hero Profile Card */
         .hero-profile-card {
-            padding: 24px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            justify-content: space-between;
         }
 
         .hero-profile-img-wrap {
             position: relative;
-            width: 160px;
-            height: 160px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             margin-bottom: 16px;
             padding: 4px;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-indigo));
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 30px var(--spotlight-color);
         }
 
         .hero-profile-img {
@@ -309,9 +397,9 @@
             color: var(--accent-emerald);
             font-size: 11px;
             font-weight: 700;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .hero-status-dot {
@@ -323,7 +411,7 @@
         }
 
         .hero-profile-name {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--text-primary);
             margin: 0 0 4px;
@@ -332,7 +420,7 @@
         .hero-profile-role {
             font-size: 13px;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .profile-quick-stats {
@@ -365,9 +453,62 @@
             letter-spacing: 0.5px;
         }
 
+        /* INNOVATION TERMINAL WIDGET */
+        .terminal-widget {
+            margin-top: 30px;
+            background: #0d1322;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .terminal-header {
+            background: #090d16;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .t-btn {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .t-red { background: #ef4444; }
+        .t-yellow { background: #f59e0b; }
+        .t-green { background: #10b981; }
+
+        .terminal-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .terminal-body {
+            padding: 16px 20px;
+            font-size: 13px;
+            color: #38bdf8;
+            line-height: 1.6;
+        }
+
+        .t-prompt { color: #f472b6; }
+        .t-cmd { color: #f8fafc; font-weight: 700; }
+        .t-output { color: var(--text-secondary); margin-top: 4px; }
+        .t-accent { color: var(--accent-emerald); font-weight: 700; }
+
         /* Section Headings */
         .section-header {
-            margin: 60px 0 28px;
+            margin: 60px 0 24px;
         }
 
         .section-tag {
@@ -437,9 +578,9 @@
         /* PROTOSEM FEATURED SECTION */
         .protosem-showcase {
             padding: 36px;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(17, 24, 39, 0.7));
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.05);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 26, 0.85));
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 25px var(--spotlight-color);
         }
 
         .protosem-top-bar {
@@ -456,9 +597,6 @@
             font-weight: 800;
             color: var(--text-primary);
             margin: 4px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
         .protosem-role-pill {
@@ -479,11 +617,11 @@
         }
 
         .protosem-desc-card {
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.3);
             border-left: 4px solid var(--accent-primary);
-            padding: 16px 20px;
+            padding: 18px 22px;
             border-radius: 0 12px 12px 0;
-            font-size: 14px;
+            font-size: 14.5px;
             color: var(--text-secondary);
             line-height: 1.65;
             margin-bottom: 28px;
@@ -523,12 +661,12 @@
             transform: translateY(-2px);
         }
 
-        /* Progress Bar */
+        /* Connected Progress Line */
         .progress-box {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
-            padding: 20px;
+            padding: 20px 24px;
             margin-bottom: 28px;
         }
 
@@ -540,7 +678,7 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .progress-timeline {
@@ -556,9 +694,10 @@
             top: 50%;
             left: 0;
             right: 0;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.1);
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-indigo));
             z-index: 1;
+            opacity: 0.4;
         }
 
         .timeline-node {
@@ -578,7 +717,7 @@
             border-color: var(--accent-primary);
             color: var(--accent-primary);
             background: rgba(56, 189, 248, 0.15);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 14px var(--accent-primary);
         }
 
         /* Phase Filter Controls */
@@ -610,14 +749,15 @@
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-indigo));
             color: #ffffff;
             border-color: transparent;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 4px 14px var(--spotlight-color);
         }
 
-        /* 20-Week Grid */
+        /* 20-Week Grid with 3D Tilt */
         .weeks-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 14px;
+            perspective: 1000px;
         }
 
         .week-card-item {
@@ -631,15 +771,16 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 110px;
+            min-height: 115px;
+            transform-style: preserve-3d;
         }
 
         .week-card-item:hover,
         .week-card-item:focus {
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.02);
             border-color: var(--accent-primary);
-            background: rgba(56, 189, 248, 0.06);
-            box-shadow: 0 8px 20px -4px rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.08);
+            box-shadow: 0 10px 25px -4px var(--spotlight-color);
         }
 
         .card-header-meta {
@@ -685,7 +826,7 @@
             width: fit-content;
         }
 
-        /* Projects Section */
+        /* Projects Grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -804,7 +945,7 @@
             position: fixed;
             inset: 0;
             background: rgba(5, 8, 15, 0.85);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -822,12 +963,12 @@
 
         .modal-card {
             background: var(--bg-dark);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            border: 1px solid var(--accent-primary);
             border-radius: 20px;
             max-width: 500px;
             width: 100%;
             padding: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px var(--spotlight-color);
             position: relative;
             transform: scale(0.95);
             transition: transform 0.25s ease;
@@ -861,7 +1002,7 @@
         }
 
         .modal-route-badge {
-            font-family: monospace;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
             color: var(--accent-primary);
             background: rgba(56, 189, 248, 0.1);
@@ -952,7 +1093,8 @@
 </head>
 
 <body>
-    <div class="ambient-glow"></div>
+    <div class="bg-grid-overlay"></div>
+    <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
 
     <!-- Sticky Navigation Bar -->
@@ -962,12 +1104,21 @@
                 <img src="profile.jpg" alt="Visakan K" class="nav-brand-avatar-img">
                 <span>VISAKAN K</span>
             </a>
+            
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#protosem">ProtoSem</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#education">Education</a></li>
+                <li>
+                    <div class="theme-picker-group" title="Switch Theme Accent">
+                        <button class="theme-dot-btn" style="background:#38bdf8;" onclick="setTheme('default')" aria-label="Cyan theme"></button>
+                        <button class="theme-dot-btn" style="background:#c084fc;" onclick="setTheme('violet')" aria-label="Violet theme"></button>
+                        <button class="theme-dot-btn" style="background:#34d399;" onclick="setTheme('emerald')" aria-label="Emerald theme"></button>
+                        <button class="theme-dot-btn" style="background:#fbbf24;" onclick="setTheme('amber')" aria-label="Amber theme"></button>
+                    </div>
+                </li>
                 <li><a href="resume.html" target="_blank" class="btn-resume">📄 Printable Resume</a></li>
             </ul>
         </div>
@@ -976,7 +1127,7 @@
     <div class="main-wrapper">
         <!-- HERO SECTION -->
         <header id="hero" class="hero-section">
-            <div>
+            <div class="hero-content-col">
                 <div class="hero-badge">
                     <span class="hero-badge-dot"></span>
                     <span>INNOVATION ENGINEER TRAINEE • MCA STUDENT</span>
@@ -1019,6 +1170,27 @@
                 </div>
             </div>
         </header>
+
+        <!-- LIVE INNOVATION TERMINAL WIDGET -->
+        <div class="terminal-widget">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="t-btn t-red"></span>
+                    <span class="t-btn t-yellow"></span>
+                    <span class="t-btn t-green"></span>
+                </div>
+                <span class="terminal-title">protosem-telemetry ~ zsh</span>
+            </div>
+            <div class="terminal-body">
+                <div><span class="t-prompt">visakan@kct-laptop</span>:<span class="t-cmd">~$ protosem status --programme</span></div>
+                <div class="t-output">
+                    > Programme: <span class="t-cmd">PRICE ProtoSem (20-Week Industry Integration)</span><br>
+                    > Role: <span class="t-accent">Innovation Engineer Trainee</span><br>
+                    > Focus: <span class="t-output">Phygital Retail, Intelligent Commerce, AI & IoT Prototyping</span><br>
+                    > Telemetry Status: <span class="t-accent">ACTIVE & ONLINE</span> [20-Week Archive Ready]
+                </div>
+            </div>
+        </div>
 
         <!-- ABOUT SECTION -->
         <section id="about">
@@ -1244,6 +1416,26 @@
     </footer>
 
     <script>
+        // Mouse Tracking Spotlight Effect for Glass Cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Dynamic Accent Theme Switcher
+        function setTheme(themeName) {
+            document.body.className = '';
+            if (themeName !== 'default') {
+                document.body.classList.add(`theme-${themeName}`);
+            }
+        }
+
         // ProtoSem 20-week dynamic data architecture
         const protoSemWeeks = Array.from({ length: 20 }, (_, i) => {
             const weekNum = i + 1;
