@@ -98,7 +98,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 14px 24px;
         }
 
         .nav-brand {
@@ -109,20 +109,16 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .nav-brand-avatar {
-            width: 32px;
-            height: 32px;
+        .nav-brand-avatar-img {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-indigo));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 800;
-            color: #fff;
+            object-fit: cover;
+            border: 2px solid var(--accent-primary);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
 
         .nav-links {
@@ -177,7 +173,7 @@
 
         /* Hero Section */
         .hero-section {
-            padding: 40px 0 60px;
+            padding: 30px 0 60px;
             display: grid;
             grid-template-columns: 1fr 380px;
             gap: 40px;
@@ -273,44 +269,100 @@
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Hero Quick Stats Card */
-        .hero-stats-card {
-            padding: 28px;
+        /* Hero Profile & Stats Card */
+        .hero-profile-card {
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-        }
-
-        .stat-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            color: var(--accent-primary);
-            display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .stat-content-title {
-            font-size: 14px;
+        .hero-profile-img-wrap {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-indigo));
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+        }
+
+        .hero-profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--bg-dark);
+            display: block;
+        }
+
+        .hero-status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent-emerald);
+            font-size: 11px;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 2px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-bottom: 16px;
         }
 
-        .stat-content-sub {
-            font-size: 12px;
+        .hero-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 8px var(--accent-emerald);
+        }
+
+        .hero-profile-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0 0 4px;
+        }
+
+        .hero-profile-role {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .profile-quick-stats {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 16px;
+        }
+
+        .profile-stat-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 10px 8px;
+        }
+
+        .profile-stat-val {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent-primary);
+        }
+
+        .profile-stat-lbl {
+            font-size: 10px;
+            font-weight: 600;
             color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Section Headings */
@@ -907,7 +959,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="#hero" class="nav-brand">
-                <div class="nav-brand-avatar">V</div>
+                <img src="profile.jpg" alt="Visakan K" class="nav-brand-avatar-img">
                 <span>VISAKAN K</span>
             </a>
             <ul class="nav-links">
@@ -943,26 +995,26 @@
                 </div>
             </div>
 
-            <div class="glass-card hero-stats-card">
-                <div class="stat-item">
-                    <div class="stat-icon">🎓</div>
-                    <div>
-                        <div class="stat-content-title">MCA (2025–2027)</div>
-                        <div class="stat-content-sub">Kumaraguru College of Technology</div>
-                    </div>
+            <!-- HERO PROFILE CARD WITH PHOTO -->
+            <div class="glass-card hero-profile-card">
+                <div class="hero-profile-img-wrap">
+                    <img src="profile.jpg" alt="Visakan K Professional Photo" class="hero-profile-img">
                 </div>
-                <div class="stat-item">
-                    <div class="stat-icon">🚀</div>
-                    <div>
-                        <div class="stat-content-title">PRICE ProtoSem</div>
-                        <div class="stat-content-sub">20-Week Innovation Programme</div>
-                    </div>
+                <div class="hero-status-tag">
+                    <span class="hero-status-dot"></span>
+                    <span>Available for Innovation & Projects</span>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-icon">🤖</div>
-                    <div>
-                        <div class="stat-content-title">AI & Analytics Focus</div>
-                        <div class="stat-content-sub">Python, SQL, ML & Prototyping</div>
+                <h2 class="hero-profile-name">VISAKAN K</h2>
+                <div class="hero-profile-role">MCA Student & ProtoSem Trainee</div>
+
+                <div class="profile-quick-stats">
+                    <div class="profile-stat-box">
+                        <div class="profile-stat-val">20 WKS</div>
+                        <div class="profile-stat-lbl">ProtoSem Archive</div>
+                    </div>
+                    <div class="profile-stat-box">
+                        <div class="profile-stat-val">AI / ML</div>
+                        <div class="profile-stat-lbl">Focus Disciplines</div>
                     </div>
                 </div>
             </div>
