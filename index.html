@@ -641,7 +641,8 @@
             <h1>VISAKAN K</h1>
             <div class="contact links">
                 visakan2923@gmail.com | 7397624449 |
-                <a href="https://www.linkedin.com/in/visakan-k-392581254" target="_blank" rel="noopener">linkedin.com/in/visakan-k-392581254</a> |
+                <a href="https://www.linkedin.com/in/visakan-k-392581254" target="_blank"
+                    rel="noopener">linkedin.com/in/visakan-k-392581254</a> |
                 <a href="https://github.com/Visakan2004" target="_blank" rel="noopener">github.com/Visakan2004</a>
             </div>
         </header>
@@ -676,11 +677,13 @@
                 <span class="protosem-role">Innovation Engineer Trainee</span>
             </div>
             <div class="protosem-descriptor">20-Week Industry-Integrated Innovation Programme</div>
-            
+
             <div class="protosem-desc-box">
-                Selected for a 20-week industry-integrated innovation programme focused on solving real-world retail and commerce challenges through AI, analytics, intelligent systems, IoT, prototyping, and entrepreneurship.
+                Selected for a 20-week industry-integrated innovation programme focused on solving real-world retail and
+                commerce challenges through AI, analytics, intelligent systems, IoT, prototyping, and entrepreneurship.
                 <br><br>
-                Working with industry problem statements to explore, develop, and validate practical technology solutions beyond conventional classroom learning.
+                Working with industry problem statements to explore, develop, and validate practical technology
+                solutions beyond conventional classroom learning.
             </div>
 
             <div class="discipline-section-title">Programme Disciplines & Focus Areas</div>
@@ -723,7 +726,8 @@
         <h2 id="projects">Projects</h2>
         <h3>Real-Time Vehicle Crash Detection and Alert System</h3>
         <ul>
-            <li>Developed a system designed to detect vehicle crashes in real time and send alerts to emergency contacts.</li>
+            <li>Developed a system designed to detect vehicle crashes in real time and send alerts to emergency
+                contacts.</li>
             <li>Designed to support faster accident identification and emergency reporting.</li>
         </ul>
 
@@ -741,7 +745,8 @@
         </ul>
 
         <h2>Soft Skills</h2>
-        <p>Problem Solving | Time Management | Leadership | Effective Communication | Team Collaboration | Adaptability</p>
+        <p>Problem Solving | Time Management | Leadership | Effective Communication | Team Collaboration | Adaptability
+        </p>
     </div>
 
     <!-- Modal Popup for Future Blog Route -->
@@ -752,7 +757,8 @@
             <h3 class="modal-title" id="modalTitle">WEEK 01</h3>
             <span class="modal-status-badge">FIELD NOTES IN PROGRESS</span>
             <p class="modal-text">
-                This week's detailed story and blog post will be published soon as part of the PRICE ProtoSem programme archive. Stay tuned!
+                This week's detailed story and blog post will be published soon as part of the PRICE ProtoSem programme
+                archive. Stay tuned!
             </p>
         </div>
     </div>
@@ -782,8 +788,8 @@
         // Render week cards dynamically
         function renderWeekCards(filterPhase = 'all') {
             weeksGrid.innerHTML = '';
-            const filtered = filterPhase === 'all' 
-                ? protoSemWeeks 
+            const filtered = filterPhase === 'all'
+                ? protoSemWeeks
                 : protoSemWeeks.filter(w => w.phase === parseInt(filterPhase, 10));
 
             filtered.forEach(item => {
@@ -792,7 +798,7 @@
                 card.setAttribute('tabindex', '0');
                 card.setAttribute('role', 'button');
                 card.setAttribute('aria-label', `${item.title} Future Story`);
-                
+
                 card.innerHTML = `
                     <div class="card-top">
                         <span class="week-phase-badge">PHASE 0${item.phase}</span>
